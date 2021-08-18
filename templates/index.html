@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Cupcakes!!!</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1 class="display-1">Cupcake List</h1>
+            <div class="row my-2" id="cupcake-list"> {% for cupcake in cupcakes %} <li class="cupcake-list">
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"><b><span
+                                class="text-success mr-2">{{cupcake.flavor.upper()}}</span></b><span
+                            class="mx-1">{{cupcake.size.upper()}}</span><span
+                            class="badge bg-secondary text-light">{{cupcake.rating}}</span>
+                        <div><img src="{{cupcake.image}}" alt="{{cupcake.flavor}}" class="img-fluid cupcake-img"></div>
+                    </div>
+                </li> {% endfor %} </div>
+            <div id="add-cupcake-form" class="mt-4 py-5">
+                <h2>Add New Cupcakes Here!</h2>
+                <form id="add-cupcake"> {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+                    'hidden' %} <div class="form-group"> {{field.label}} {{field(class_="form-control ")}} {% for err in
+                        field.errors %} <i style="color: red">{{err}}</i> {% endfor %}{% endfor %} </div>
+                    <button class="btn btn-success btn-lg">Submit Cupcake</button>
+                </form>
+            </div>
+            <div id="search-cupcake">
+                <h2>Search for Cupcakes</h2>
+                <form action="/api/cupcakes/search"><input type="text" placeholder="Search term" name="search"
+                        id="search" required><button class="btn btn-primary btn-large">Search</button></form>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"
+            integrity="sha256-T/f7Sju1ZfNNfBh7skWn0idlCBcI3RwdLSS4/I7NQKQ=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="/static/cupcakes.js"></script>
+    </body>
+
+</html>
